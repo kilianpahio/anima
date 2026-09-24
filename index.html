@@ -182,17 +182,18 @@ h1 .serif{color:var(--coral)}
 /* Téléphone : petits carrés groupés à gauche, tous entièrement visibles
    même quand le curseur coupe l'image. */
 @media(max-width:720px){
-  /* Chaque case est au format 16:9, comme les photos : plus de recadrage
-     qui ne garderait que le ciel ou le plafond. */
-  .ba{aspect-ratio:71/100}
+  /* Petites vignettes, 3 par rangée, toutes au format 16:9 comme les photos
+     d'origine pour éviter tout recadrage. */
+  .ba{aspect-ratio:4/3}
   .mosaic{
-    grid-template-columns:1fr 1fr;
-    grid-template-rows:2fr 1fr 1fr 1fr;
-    gap:5px;padding:5px;background:#fff;
+    display:flex;flex-wrap:wrap;
+    justify-content:center;align-content:center;
+    gap:5px;padding:8px;background:#fff;
   }
-  .mosaic img{width:100%;height:100%;border-radius:6px}
+  .mosaic img{
+    width:calc(33.333% - 4px);height:auto;aspect-ratio:16/9;border-radius:5px;
+  }
   .m-big,.m-wide,.m-foot{grid-column:auto;grid-row:auto}
-  .mosaic img:nth-child(1){grid-column:1/3;grid-row:1}
   .ba-chip{font-size:12px;padding:7px 12px;top:10px}
   .ba-chip.l{left:10px}
   .ba-chip.r{right:10px}
