@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anima — Vos annonces immobilières en vidéo</title>
+<meta name="description" content="Je transforme les photos d'annonces des agences immobilières en courtes vidéos animées, prêtes pour les annonces et les réseaux sociaux. Essai gratuit.">
+<meta name="keywords" content="vidéo immobilier, annonce immobilière, agence immobilière Tahiti, Polynésie, animation photo, réseaux sociaux immobilier">
+<meta property="og:title" content="Anima — Vos annonces immobilières en vidéo">
+<meta property="og:description" content="Vos photos d'annonces transformées en vidéos courtes, prêtes à publier. Livrées sous 48 h.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14161A;
+  --ink-soft:#4A4E57;
+  --ink-mute:#83878F;
+  --bg:#FAFAF8;
+  --white:#FFFFFF;
+  --line:rgba(20,22,26,.08);
+  --coral:#FF5A3C;
+  --coral-deep:#E8421F;
+  --lagon:#12B5B0;
+  --lagon-soft:#E6F7F6;
+  --coral-soft:#FFF0EC;
+  --r-lg:28px;
+  --r-md:22px;
+  --r-sm:16px;
+  color-scheme:light;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:Urbanist,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,video{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400}
+
+/* ---------- layout ---------- */
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding-inline:20px}
+section{position:relative}
+.eyebrow{
+  display:inline-block;padding:6px 13px;border-radius:999px;
+  font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+}
+.eyebrow.lagon{background:var(--lagon-soft);color:#0A7D79}
+.eyebrow.coral{background:var(--coral-soft);color:var(--coral-deep)}
+h2{
+  font-weight:300;font-size:clamp(32px,6.2vw,60px);line-height:1.03;
+  letter-spacing:-.03em;text-wrap:balance;
+}
+.lede{color:var(--ink-soft);font-size:clamp(16px,2.2vw,18px);line-height:1.55;max-width:46ch;text-wrap:pretty}
+
+/* ---------- boutons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:16px 26px;border-radius:999px;border:0;cursor:pointer;
+  font-size:16px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;
+  transition:transform .22s cubic-bezier(.2,.7,.2,1),box-shadow .22s,background .22s,color .22s;
+}
+.btn-primary{background:var(--coral);color:#fff;box-shadow:0 10px 26px rgba(255,90,60,.34)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(255,90,60,.44);color:#fff}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(20,22,26,.28);color:#fff}
+.btn-ghost{background:rgba(255,255,255,.82);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:#fff;transform:translateY(-2px)}
+.btn-line{background:transparent;border:1.5px solid var(--ink)}
+.btn-line:hover{background:var(--ink);color:#fff}
+.btn-wa{background:#25D366;color:#0A2E18;font-weight:700}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(37,211,102,.4);color:#0A2E18}
+.btn .arrow{transition:transform .22s}
+.btn:hover .arrow{transform:translateX(4px)}
+
+/* ---------- nav ---------- */
+.nav-holder{position:fixed;top:12px;left:0;right:0;z-index:60;display:flex;justify-content:center;padding-inline:14px;padding-top:env(safe-area-inset-top,0px);pointer-events:none}
+nav{
+  pointer-events:auto;display:flex;align-items:center;gap:4px;width:100%;max-width:620px;
+  padding:6px 6px 6px 18px;border-radius:999px;
+  background:rgba(255,255,255,.74);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1px solid var(--line);box-shadow:0 6px 26px rgba(20,22,26,.07);
+}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:19px;letter-spacing:-.025em;margin-right:auto}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--coral);flex:none}
+.nav-link{padding:10px 13px;border-radius:999px;font-size:14.5px;font-weight:500;transition:background .2s}
+.nav-link:hover{background:rgba(20,22,26,.055)}
+nav .btn{padding:11px 18px;font-size:14.5px;box-shadow:none}
+nav .btn:hover{box-shadow:0 8px 20px rgba(20,22,26,.25)}
+@media(max-width:620px){.nav-link{display:none}nav{max-width:100%;padding-left:16px}}
+
+/* ---------- hero ---------- */
+.hero{padding:10px 10px 0}
+.hero-inner{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;
+  min-height:min(92vh,760px);display:flex;flex-direction:column;
+  background:linear-gradient(170deg,#CFE6F2,#E8DFF3 60%,#FBE3DC);
+}
+.hero-media{position:absolute;inset:0;overflow:hidden}
+.hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover}
+.kb{animation:kenburns 20s ease-in-out infinite}
+@keyframes kenburns{0%,100%{transform:scale(1.03) translate(0,0)}50%{transform:scale(1.15) translate(-2%,-1.5%)}}
+.hero-veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(250,250,248,.95) 0%,rgba(250,250,248,.74) 32%,rgba(250,250,248,.05) 62%,rgba(250,250,248,.55) 100%)}
+.hero-top{position:relative;padding:clamp(108px,17vh,158px) 20px 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px}
+h1{
+  font-weight:300;font-size:clamp(40px,9.6vw,96px);line-height:.98;
+  letter-spacing:-.04em;max-width:12ch;text-wrap:balance;
+}
+h1 .serif{color:var(--coral)}
+.hero-sub{font-size:clamp(16.5px,2.3vw,20px);color:var(--ink-soft);max-width:34ch;line-height:1.45;text-wrap:pretty}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.hero-floor{position:relative;margin-top:auto;padding:22px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.glass{
+  display:flex;align-items:center;gap:10px;padding:13px 17px;border-radius:18px;
+  background:rgba(255,255,255,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 10px 34px rgba(20,22,26,.12);
+}
+.glass.col{flex-direction:column;align-items:flex-start;gap:1px}
+.float-a{animation:floaty 6.5s ease-in-out infinite}
+.float-b{animation:floaty 8s ease-in-out infinite;animation-delay:-2.4s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.live{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.glass small{font-size:12px;color:var(--ink-mute);font-weight:500}
+.glass strong{font-size:20px;font-weight:600;letter-spacing:-.02em}
+.tags{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+
+/* ---------- avant / après ---------- */
+.ba{
+  position:relative;width:100%;aspect-ratio:4/3;max-height:660px;
+  border-radius:var(--r-md);overflow:hidden;background:#E7E8EA;
+  touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:ew-resize;
+  box-shadow:0 30px 70px rgba(20,22,26,.13);
+}
+.ba-layer{position:absolute;inset:0;pointer-events:none}
+.ba-layer img{width:100%;height:100%;object-fit:cover}
+.ba-after{clip-path:inset(0 0 0 50%)}
+.ba-chip{
+  position:absolute;top:14px;padding:8px 14px;border-radius:999px;
+  font-size:13px;font-weight:600;pointer-events:none;
+}
+.ba-chip.l{left:14px;background:rgba(255,255,255,.88);backdrop-filter:blur(10px)}
+.ba-chip.r{right:14px;background:var(--ink);color:#fff;display:flex;align-items:center;gap:7px}
+.ba-handle{position:absolute;top:0;bottom:0;left:50%;width:2px;margin-left:-1px;background:#fff;pointer-events:none;box-shadow:0 0 14px rgba(0,0,0,.28)}
+.ba-knob{
+  position:absolute;top:50%;left:50%;width:54px;height:54px;margin:-27px 0 0 -27px;
+  border-radius:50%;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);
+  box-shadow:0 8px 26px rgba(20,22,26,.3);
+  display:flex;align-items:center;justify-content:center;gap:5px;font-size:17px;font-weight:600;
+}
+.ba-lower{position:absolute;left:18px;bottom:28px;display:flex;flex-direction:column;gap:7px;animation:lower 8s ease-in-out infinite}
+@keyframes lower{0%,7%{transform:translateY(26px);opacity:0}15%,85%{transform:translateY(0);opacity:1}93%,100%{transform:translateY(26px);opacity:0}}
+.ba-badge{align-self:flex-start;padding:6px 12px;border-radius:999px;background:var(--coral);color:#fff;font-size:13px;font-weight:600}
+.ba-title{padding:12px 16px;border-radius:14px;background:rgba(20,22,26,.8);color:#fff;font-size:clamp(15px,2.4vw,20px);font-weight:600;letter-spacing:-.01em;backdrop-filter:blur(6px)}
+.ba-bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.35)}
+.ba-bar i{display:block;height:100%;background:var(--lagon);animation:fill 8s linear infinite}
+@keyframes fill{0%{width:0}100%{width:100%}}
+
+/* ---------- cartes ---------- */
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(258px,1fr))}
+.card{
+  padding:30px;border-radius:var(--r-md);background:var(--white);border:1px solid var(--line);
+  display:flex;flex-direction:column;gap:13px;
+  transition:transform .26s cubic-bezier(.2,.7,.2,1),box-shadow .26s;
+}
+.card:hover{transform:translateY(-5px);box-shadow:0 22px 52px rgba(20,22,26,.09)}
+.card.dark{background:var(--ink);color:#fff;border-color:transparent}
+.card.dark p{color:#C6C9CF}
+.card h3{font-size:23px;font-weight:600;letter-spacing:-.022em;margin-top:6px}
+.card p{color:var(--ink-soft);font-size:16px;line-height:1.52}
+.ico{width:54px;height:54px;border-radius:17px;display:flex;align-items:center;justify-content:center;flex:none}
+.ico.lagon{background:var(--lagon-soft)}
+.ico.coral{background:var(--coral)}
+.ico.soft{background:var(--coral-soft)}
+.step{background:linear-gradient(162deg,#fff 42%,var(--lagon-soft))}
+.step.alt{background:linear-gradient(162deg,#fff 42%,var(--coral-soft))}
+.num{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:58px;line-height:1;color:var(--lagon)}
+.step.alt .num{color:var(--coral)}
+
+/* ---------- offres ---------- */
+.plans{grid-template-columns:repeat(auto-fit,minmax(268px,1fr));align-items:stretch}
+.plan{padding:32px;border-radius:26px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;gap:18px;transition:transform .26s,box-shadow .26s}
+.plan:hover{transform:translateY(-5px);box-shadow:0 22px 52px rgba(20,22,26,.09)}
+.plan h3{font-size:22px;font-weight:600}
+.price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price b{font-size:clamp(34px,5vw,42px);font-weight:500;letter-spacing:-.035em}
+.price span{color:var(--ink-mute);font-size:15px}
+.feats{display:flex;flex-direction:column;gap:10px;font-size:15.5px;color:var(--ink-soft)}
+.feats li{list-style:none;display:flex;gap:10px;align-items:flex-start}
+.feats svg{flex:none;margin-top:4px}
+.plan .btn{width:100%;margin-top:auto}
+.plan.featured{background:var(--ink);color:#fff;border-color:transparent;box-shadow:0 30px 66px rgba(255,90,60,.22)}
+.plan.featured .feats{color:#DDE0E4}
+.plan.featured:hover{transform:translateY(-7px)}
+.plan-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.badge-hot{padding:6px 12px;border-radius:999px;background:var(--coral);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+
+/* ---------- calculateur ---------- */
+.calc{
+  margin-top:14px;padding:clamp(24px,4.4vw,42px);border-radius:26px;
+  background:linear-gradient(135deg,var(--lagon-soft),#F3ECFB 52%,var(--coral-soft));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(282px,1fr));gap:clamp(24px,4vw,40px);align-items:center;
+}
+.calc h3{font-size:clamp(23px,3.4vw,31px);font-weight:500;letter-spacing:-.025em}
+.calc-n{display:flex;align-items:baseline;gap:11px}
+.calc-n b{font-size:clamp(56px,10vw,76px);font-weight:300;letter-spacing:-.045em;line-height:1}
+.calc-n span{font-size:17px;color:var(--ink-soft)}
+input[type=range]{width:100%;height:30px;accent-color:var(--coral);cursor:pointer;background:transparent}
+.calc-scale{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-mute)}
+.calc-out{padding:27px;border-radius:22px;background:#fff;display:flex;flex-direction:column;gap:7px;box-shadow:0 16px 44px rgba(20,22,26,.08)}
+.calc-out small{font-size:14px;color:var(--ink-mute);font-weight:500}
+.calc-out strong{color:var(--ink)}
+.calc-total{font-size:clamp(34px,6vw,50px);font-weight:500;letter-spacing:-.038em;line-height:1.06}
+.calc-out .btn{margin-top:12px;width:100%}
+
+/* ---------- contact ---------- */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,58px);align-items:center}
+form{display:flex;flex-direction:column;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600}
+.field input{
+  padding:15px 16px;border-radius:14px;border:1.5px solid #E4E5E8;background:var(--bg);
+  font-size:16px;font-weight:500;outline:none;transition:border-color .2s,background .2s;
+}
+.field input:focus{border-color:var(--lagon);background:#fff}
+.form-box{padding:clamp(22px,4vw,34px);border-radius:26px;background:#fff;border:1px solid var(--line);box-shadow:0 30px 66px rgba(20,22,26,.08)}
+form .btn{margin-top:6px;width:100%}
+.done{display:none;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:34px 0}
+.done span.tick{width:58px;height:58px;border-radius:50%;background:var(--lagon-soft);color:#0A7D79;display:flex;align-items:center;justify-content:center;font-size:25px}
+.done h3{font-size:26px;font-weight:600;letter-spacing:-.02em}
+.done p{color:var(--ink-soft)}
+.wa-ico{width:22px;height:22px;border-radius:50%;background:#0A2E18;color:#25D366;display:flex;align-items:center;justify-content:center;font-size:12px}
+
+/* ---------- footer ---------- */
+footer{
+  margin-top:clamp(50px,8vw,80px);padding:28px 0 calc(38px + env(safe-area-inset-bottom,0px));
+  border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
+  font-size:14px;color:var(--ink-mute);
+}
+footer .logo{font-size:17px;color:var(--ink);margin-right:0}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .75s ease,transform .75s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+}
+.pad{padding-top:clamp(84px,13vw,146px)}
+.head{display:flex;flex-direction:column;gap:14px;margin-bottom:38px}
+.head.center{align-items:center;text-align:center}
+.head .eyebrow{align-self:flex-start}
+.head.center .eyebrow{align-self:center}
+</style>
+</head>
+<body>
+
+<div class="nav-holder">
+  <nav>
+    <a href="#top" class="logo"><span class="dot"></span>Anima</a>
+    <a href="#demo" class="nav-link">Démo</a>
+    <a href="#offres" class="nav-link">Offres</a>
+    <a href="#contact" class="btn btn-dark">Essai gratuit</a>
+  </nav>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-media">
+      <!-- Remplacer par la vraie vidéo démo : <video src="demo.mp4" autoplay muted loop playsinline poster="hero.jpg"></video> -->
+      <img class="kb" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23BFD9E8'/%3E%3Cstop offset='.55' stop-color='%23DCD3EC'/%3E%3Cstop offset='1' stop-color='%23F6D9CE'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Crect x='300' y='470' width='1000' height='360' rx='18' fill='%23ffffff' opacity='.5'/%3E%3Crect x='420' y='360' width='760' height='150' rx='14' fill='%23ffffff' opacity='.38'/%3E%3C/svg%3E" alt="Démonstration d'un bien immobilier animé">
+    </div>
+    <div class="hero-veil"></div>
+
+    <div class="hero-top">
+      <div class="tags">
+        <span class="eyebrow coral">Polynésie française</span>
+        <span class="eyebrow lagon">Essai gratuit</span>
+      </div>
+      <h1>Vos biens, <span class="serif">en mouvement.</span></h1>
+      <p class="hero-sub">Je transforme vos photos d'annonces en vidéos courtes, prêtes à publier.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Essai gratuit <span class="arrow">→</span></a>
+        <a href="#demo" class="btn btn-ghost">Voir l'avant / après</a>
+      </div>
+    </div>
+
+    <div class="hero-floor">
+      <div class="glass float-a"><span class="live"></span><strong style="font-size:15px">9:16 · 1:1 · 16:9</strong></div>
+      <div class="glass col float-b"><small>Livraison</small><strong>48 h</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AVANT / APRÈS ============ -->
+<section class="pad" id="demo">
+  <div class="wrap">
+    <div class="head center rv">
+      <span class="eyebrow lagon">Avant / Après</span>
+      <h2>Même photo. <span class="serif">Autre impact.</span></h2>
+      <p class="lede" style="text-align:center">Glissez le curseur pour comparer.</p>
+    </div>
+
+    <div class="ba rv" id="ba">
+      <div class="ba-layer">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900'%3E%3Crect width='1200' height='900' fill='%23D9DCE0'/%3E%3Crect x='150' y='420' width='900' height='330' rx='14' fill='%23C3C7CD'/%3E%3Crect x='260' y='300' width='680' height='140' rx='10' fill='%23CDD1D6'/%3E%3Ccircle cx='980' cy='190' r='70' fill='%23E2E5E8'/%3E%3C/svg%3E" alt="Photo d'annonce classique">
+      </div>
+      <span class="ba-chip l">Photo</span>
+
+      <div class="ba-layer ba-after" id="baAfter">
+        <img class="kb" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900'%3E%3Cdefs%3E%3ClinearGradient id='h' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23CBE3EF'/%3E%3Cstop offset='1' stop-color='%23F3DACF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='900' fill='url(%23h)'/%3E%3Crect x='150' y='420' width='900' height='330' rx='14' fill='%23ffffff' opacity='.55'/%3E%3Crect x='260' y='300' width='680' height='140' rx='10' fill='%23ffffff' opacity='.4'/%3E%3Ccircle cx='980' cy='190' r='70' fill='%23ffffff' opacity='.6'/%3E%3C/svg%3E" alt="Le même bien en version vidéo animée">
+        <span class="ba-chip r"><span class="live"></span>Vidéo</span>
+        <div class="ba-lower">
+          <span class="ba-badge">Nouveau</span>
+          <span class="ba-title">Villa vue lagon · 4 ch.</span>
+        </div>
+        <div class="ba-bar"><i></i></div>
+      </div>
+
+      <div class="ba-handle" id="baHandle"><div class="ba-knob">‹ ›</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POURQUOI ============ -->
+<section class="pad">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow coral">Pourquoi ça marche</span>
+      <h2>La vidéo <span class="serif">arrête le scroll.</span></h2>
+    </div>
+    <div class="grid g3">
+      <article class="card rv">
+        <div class="ico lagon">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#0A7D79" stroke-width="2"><ellipse cx="13" cy="13" rx="11" ry="7"/><circle cx="13" cy="13" r="3"/></svg>
+        </div>
+        <h3>Plus de vues</h3>
+        <p>Une vidéo attire l'œil dans le fil d'actualité. Vos biens sont vus, et revus.</p>
+      </article>
+      <article class="card dark rv">
+        <div class="ico coral">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="13" cy="13" r="10"/><path d="M13 13V7M13 13l4 2"/></svg>
+        </div>
+        <h3>Vendus plus vite</h3>
+        <p>Un bien mieux présenté génère plus de demandes de visite.</p>
+      </article>
+      <article class="card rv">
+        <div class="ico soft">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="#FF5A3C"><path d="M13 2l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></svg>
+        </div>
+        <h3>Une agence moderne</h3>
+        <p>Des réseaux soignés, aux couleurs de votre agence. Vous sortez du lot.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMENT ============ -->
+<section class="pad">
+  <div class="wrap">
+    <div class="head center rv">
+      <span class="eyebrow lagon">Comment ça marche</span>
+      <h2>Trois étapes. <span class="serif">Zéro effort.</span></h2>
+    </div>
+    <div class="grid g3">
+      <article class="card step rv">
+        <span class="num">01</span>
+        <h3>Vous envoyez les photos</h3>
+        <p>Par WhatsApp, e-mail ou lien. Celles de l'annonce suffisent.</p>
+      </article>
+      <article class="card step alt rv">
+        <span class="num">02</span>
+        <h3>J'anime</h3>
+        <p>Mouvements de caméra, textes, logo et musique. À votre image.</p>
+      </article>
+      <article class="card step rv">
+        <span class="num">03</span>
+        <h3>Vous publiez</h3>
+        <p>Vidéo livrée sous 48 h, aux bons formats pour chaque réseau.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFFRES ============ -->
+<section class="pad" id="offres">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow coral">Offres</span>
+      <h2>Des formules <span class="serif">simples.</span></h2>
+      <p class="lede">Sans engagement. Vous arrêtez quand vous voulez.</p>
+    </div>
+
+    <div class="grid plans">
+      <article class="plan rv">
+        <h3>Découverte</h3>
+        <div class="price"><b>4 500 XPF</b><span>/ vidéo</span></div>
+        <ul class="feats">
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>1 vidéo, à l'unité</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>1 format au choix</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Livrée sous 48 h</li>
+        </ul>
+        <a href="#contact" class="btn btn-line">Choisir</a>
+      </article>
+
+      <article class="plan featured rv">
+        <div class="plan-head">
+          <h3>Agence</h3>
+          <span class="badge-hot">Le plus choisi</span>
+        </div>
+        <div class="price"><b>34 900 XPF</b><span>/ mois</span></div>
+        <ul class="feats">
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>10 vidéos par mois</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>3 formats : 9:16, 1:1, 16:9</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Logo et couleurs de l'agence</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Livrée sous 24 h</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary">Essai gratuit</a>
+      </article>
+
+      <article class="plan rv">
+        <h3>Réseau</h3>
+        <div class="price"><b>82 900 XPF</b><span>/ mois</span></div>
+        <ul class="feats">
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>30 vidéos par mois</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Tout ce que contient Agence</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Plusieurs agences</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Interlocuteur dédié</li>
+        </ul>
+        <a href="#contact" class="btn btn-line">Choisir</a>
+      </article>
+    </div>
+
+    <!-- calculateur -->
+    <div class="calc rv">
+      <div style="display:flex;flex-direction:column;gap:17px">
+        <h3>Combien de biens par mois ?</h3>
+        <div class="calc-n"><b id="calcN">8</b><span id="calcLabel">biens / mois</span></div>
+        <input type="range" id="calcRange" min="1" max="40" value="8" aria-label="Nombre de biens par mois">
+        <div class="calc-scale"><span>1</span><span>40</span></div>
+      </div>
+      <div class="calc-out">
+        <small>Formule conseillée : <strong id="calcPlan">Agence</strong></small>
+        <div class="calc-total" id="calcTotal">34 900 XPF</div>
+        <small id="calcUnit">par mois · soit 3 490 XPF par vidéo</small>
+        <a href="#contact" class="btn btn-dark">Commencer par un essai gratuit</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="pad" id="contact">
+  <div class="wrap">
+    <div class="contact-grid rv">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <span class="eyebrow lagon" style="align-self:flex-start">Essai gratuit</span>
+        <h2>Testez sur <span class="serif" style="color:var(--coral)">un de vos biens.</span></h2>
+        <p class="lede">Votre première vidéo est offerte. Je vous rappelle sous 24 h.</p>
+        <a class="btn btn-wa" style="align-self:flex-start" target="_blank" rel="noopener"
+           href="https://wa.me/68987000000?text=Bonjour%2C%20je%20souhaite%20un%20essai%20gratuit%20Anima.">
+          <span class="wa-ico">✆</span>Écrire sur WhatsApp
+        </a>
+      </div>
+
+      <div class="form-box">
+        <form id="leadForm" novalidate>
+          <label class="field">Nom
+            <input name="nom" required placeholder="Marie Teriitahi" autocomplete="name">
+          </label>
+          <label class="field">Agence
+            <input name="agence" required placeholder="Nom de l'agence" autocomplete="organization">
+          </label>
+          <label class="field">Téléphone
+            <input name="tel" type="tel" required placeholder="87 00 00 00" autocomplete="tel">
+          </label>
+          <button type="submit" class="btn btn-primary">Demander mon essai gratuit</button>
+        </form>
+        <div class="done" id="done">
+          <span class="tick">✓</span>
+          <h3>Merci, c'est noté.</h3>
+          <p>Je vous rappelle sous 24 h.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <span class="logo"><span class="dot"></span>Anima</span>
+      <span>Polynésie française</span>
+    </footer>
+  </div>
+</section>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---- reveal au scroll ---- */
+  var items = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function(el){
+      if (el.getBoundingClientRect().top < window.innerHeight) { el.classList.add('in'); return; }
+      io.observe(el);
+    });
+  } else {
+    items.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---- slider avant / après ---- */
+  var ba = document.getElementById('ba'),
+      after = document.getElementById('baAfter'),
+      handle = document.getElementById('baHandle'),
+      dragging = false;
+
+  function setPos(clientX){
+    var r = ba.getBoundingClientRect();
+    var p = Math.max(0, Math.min(100, (clientX - r.left) / r.width * 100));
+    after.style.clipPath = 'inset(0 0 0 ' + p + '%)';
+    handle.style.left = p + '%';
+  }
+  ba.addEventListener('pointerdown', function(e){
+    dragging = true;
+    if (ba.setPointerCapture) ba.setPointerCapture(e.pointerId);
+    setPos(e.clientX);
+  });
+  ba.addEventListener('pointermove', function(e){ if (dragging) setPos(e.clientX); });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
+    ba.addEventListener(ev, function(){ dragging = false; });
+  });
+
+  /* ---- calculateur ---- */
+  var range = document.getElementById('calcRange'),
+      nOut = document.getElementById('calcN'),
+      lab = document.getElementById('calcLabel'),
+      planOut = document.getElementById('calcPlan'),
+      totalOut = document.getElementById('calcTotal'),
+      unitOut = document.getElementById('calcUnit');
+
+  function xpf(v){ return (Math.round(v / 100) * 100).toLocaleString('fr-FR').replace(/ | /g, ' ') + ' XPF'; }
+
+  function refresh(){
+    var n = parseInt(range.value, 10);
+    var offers = [
+      { name:'Découverte', price: n * 4500 },
+      { name:'Agence',     price: 34900 + Math.max(0, n - 10) * 3300 },
+      { name:'Réseau',     price: 82900 + Math.max(0, n - 30) * 2600 }
+    ];
+    var best = offers.reduce(function(a, b){ return b.price < a.price ? b : a; });
+
+    nOut.textContent = n;
+    lab.textContent = n > 1 ? 'biens / mois' : 'bien / mois';
+    planOut.textContent = best.name;
+    totalOut.textContent = xpf(best.price);
+    unitOut.textContent = 'par mois · soit ' + xpf(best.price / n) + ' par vidéo';
+  }
+  range.addEventListener('input', refresh);
+  refresh();
+
+  /* ---- formulaire ---- */
+  var form = document.getElementById('leadForm'),
+      done = document.getElementById('done');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var ok = true;
+    Array.prototype.forEach.call(form.querySelectorAll('input[required]'), function(input){
+      if (!input.value.trim()) { input.style.borderColor = '#FF5A3C'; ok = false; }
+      else { input.style.borderColor = ''; }
+    });
+    if (!ok) return;
+
+    var d = new FormData(form);
+    var msg = 'Bonjour, je souhaite un essai gratuit Anima.%0A'
+            + 'Nom : ' + encodeURIComponent(d.get('nom')) + '%0A'
+            + 'Agence : ' + encodeURIComponent(d.get('agence')) + '%0A'
+            + 'Téléphone : ' + encodeURIComponent(d.get('tel'));
+
+    form.style.display = 'none';
+    done.style.display = 'flex';
+
+    // Ouvre WhatsApp avec la demande pré-remplie
+    window.open('https://wa.me/68987000000?text=' + msg, '_blank');
+  });
+})();
+</script>
+</body>
+</html>
