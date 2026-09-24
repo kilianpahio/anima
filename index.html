@@ -106,6 +106,11 @@ nav .btn:hover{box-shadow:0 8px 20px rgba(20,22,26,.25)}
 .hero-media{position:absolute;inset:0;overflow:hidden}
 .hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover}
 .kb{animation:kenburns 20s ease-in-out infinite}
+.lazyvid{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .9s ease;
+}
+.lazyvid.on{opacity:1}
 @keyframes kenburns{0%,100%{transform:scale(1.03) translate(0,0)}50%{transform:scale(1.15) translate(-2%,-1.5%)}}
 .hero-veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(250,250,248,.95) 0%,rgba(250,250,248,.74) 32%,rgba(250,250,248,.05) 62%,rgba(250,250,248,.55) 100%)}
 .hero-top{position:relative;padding:clamp(108px,17vh,158px) 20px 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px}
@@ -286,9 +291,10 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
 <section class="hero" id="top">
   <div class="hero-inner">
     <div class="hero-media">
-      <!-- Quand la vidéo démo sera prête, remplacer l'image par :
-           <video src="demo.mp4" autoplay muted loop playsinline poster="photos/piscine.jpg"></video> -->
-      <img class="kb" src="photos/piscine.jpg" alt="Villa avec piscine et vue mer, Tahiti">
+      <!-- La photo s'affiche tout de suite ; la vidéo la remplace une fois chargée (voir JS en bas) -->
+      <img class="kb" id="heroPoster" src="photos/piscine.jpg" alt="Villa avec piscine et vue mer, Tahiti">
+      <video class="lazyvid" id="heroVideo" data-src="demo.mp4" muted loop playsinline preload="none"
+             poster="photos/piscine.jpg" aria-label="Démonstration vidéo d'une annonce animée"></video>
     </div>
     <div class="hero-veil"></div>
 
@@ -336,7 +342,9 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
       <span class="ba-chip l">7 photos</span>
 
       <div class="ba-layer ba-after" id="baAfter">
-        <img class="kb" src="photos/piscine.jpg" alt="Le même bien en version vidéo animée">
+        <img class="kb" id="baPoster" src="photos/piscine.jpg" alt="Le même bien en version vidéo animée">
+        <video class="lazyvid" id="baVideo" data-src="demo.mp4" muted loop playsinline preload="none"
+               poster="photos/piscine.jpg" aria-label="Le même bien en vidéo"></video>
         <span class="ba-chip r"><span class="live"></span>1 vidéo</span>
         <div class="ba-lower">
           <span class="ba-badge">Nouveau</span>
@@ -538,6 +546,31 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
     });
   } else {
     items.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---- vidéos : chargées seulement si la connexion suit ---- */
+  var vids = document.querySelectorAll('.lazyvid');
+  var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  var slow = conn && (conn.saveData || /^(slow-)?2g$/.test(conn.effectiveType || ''));
+  var worthIt = !slow && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (worthIt && 'IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var v = e.target;
+        if (e.isIntersecting) {
+          if (!v.src) {
+            v.src = v.dataset.src;
+            v.addEventListener('canplay', function(){ v.classList.add('on'); }, { once: true });
+          }
+          var p = v.play();
+          if (p && p.catch) p.catch(function(){});
+        } else if (v.src) {
+          v.pause();
+        }
+      });
+    }, { threshold: .25 });
+    vids.forEach(function(v){ vio.observe(v); });
   }
 
   /* ---- slider avant / après ---- */
