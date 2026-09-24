@@ -226,7 +226,22 @@ h1 .serif{color:var(--coral)}
 .num{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:58px;line-height:1;color:var(--lagon)}
 .step.alt .num{color:var(--coral)}
 
+/* ---------- bande porte d'entrée ---------- */
+.entry{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1px;
+  margin-bottom:14px;border-radius:var(--r-sm);overflow:hidden;
+  background:var(--line);border:1px solid var(--line);
+}
+.entry-item{background:var(--white);padding:19px 22px;display:flex;flex-direction:column;gap:3px}
+.entry-item b{font-size:19px;font-weight:600;letter-spacing:-.022em}
+.entry-item b i{font-style:normal;font-size:14px;font-weight:500;color:var(--ink-mute);margin-left:5px}
+.entry-item small{font-size:14px;color:var(--ink-soft)}
+.entry-item:first-child b{color:var(--coral)}
+.entry-item sup{font-size:.6em;vertical-align:super}
+
 /* ---------- offres ---------- */
+.price-eur{font-size:14px;color:var(--ink-mute);margin-top:-12px}
+.plan.featured .price-eur{color:#9BA0A8}
 .plans{grid-template-columns:repeat(auto-fit,minmax(268px,1fr));align-items:stretch}
 .plan{padding:32px;border-radius:26px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;gap:18px;transition:transform .26s,box-shadow .26s}
 .plan:hover{transform:translateY(-5px);box-shadow:0 22px 52px rgba(20,22,26,.09)}
@@ -454,41 +469,58 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
       <p class="lede">Sans engagement. Vous arrêtez quand vous voulez.</p>
     </div>
 
+    <div class="entry rv">
+      <div class="entry-item">
+        <b>1<sup>re</sup> vidéo offerte</b>
+        <small>Sur un de vos biens, pour juger sur pièce</small>
+      </div>
+      <div class="entry-item">
+        <b>7 200 XPF <i>60 €</i></b>
+        <small>La vidéo à l'unité, sans engagement</small>
+      </div>
+      <div class="entry-item">
+        <b>29 800 XPF <i>250 €</i></b>
+        <small>Le pack de 5 vidéos</small>
+      </div>
+    </div>
+
     <div class="grid plans">
       <article class="plan rv">
-        <h3>Découverte</h3>
-        <div class="price"><b>4 500 XPF</b><span>/ vidéo</span></div>
+        <h3>Essentiel</h3>
+        <div class="price"><b>23 900 XPF</b><span>/ mois</span></div>
+        <div class="price-eur">environ 200 € par mois</div>
         <ul class="feats">
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>1 vidéo, à l'unité</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>1 format au choix</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Livrée sous 48 h</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>5 vidéos par mois</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>2 formats</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Livraison sous 48 h</li>
         </ul>
         <a href="#contact" class="btn btn-line">Choisir</a>
       </article>
 
       <article class="plan featured rv">
         <div class="plan-head">
-          <h3>Agence</h3>
+          <h3>Pro</h3>
           <span class="badge-hot">Le plus choisi</span>
         </div>
-        <div class="price"><b>34 900 XPF</b><span>/ mois</span></div>
+        <div class="price"><b>41 800 XPF</b><span>/ mois</span></div>
+        <div class="price-eur">environ 350 € par mois</div>
         <ul class="feats">
           <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>10 vidéos par mois</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>3 formats : 9:16, 1:1, 16:9</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Logo et couleurs de l'agence</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Livrée sous 24 h</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>2 formats</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Voix off incluse</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Priorité de livraison</li>
         </ul>
         <a href="#contact" class="btn btn-primary">Essai gratuit</a>
       </article>
 
       <article class="plan rv">
-        <h3>Réseau</h3>
-        <div class="price"><b>82 900 XPF</b><span>/ mois</span></div>
+        <h3>Premium</h3>
+        <div class="price"><b>71 600 XPF</b><span>/ mois</span></div>
+        <div class="price-eur">environ 600 € par mois</div>
         <ul class="feats">
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>30 vidéos par mois</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Tout ce que contient Agence</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Plusieurs agences</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Interlocuteur dédié</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>20 vidéos par mois</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Voix off et version anglaise</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Publication sur vos réseaux</li>
         </ul>
         <a href="#contact" class="btn btn-line">Choisir</a>
       </article>
@@ -503,9 +535,9 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
         <div class="calc-scale"><span>1</span><span>40</span></div>
       </div>
       <div class="calc-out">
-        <small>Formule conseillée : <strong id="calcPlan">Agence</strong></small>
-        <div class="calc-total" id="calcTotal">34 900 XPF</div>
-        <small id="calcUnit">par mois · soit 3 490 XPF par vidéo</small>
+        <small>Formule conseillée : <strong id="calcPlan">Pro</strong></small>
+        <div class="calc-total" id="calcTotal">41 800 XPF</div>
+        <small id="calcUnit">par mois · soit 5 200 XPF par vidéo</small>
         <a href="#contact" class="btn btn-dark">Commencer par un essai gratuit</a>
       </div>
     </div>
@@ -673,15 +705,25 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
 
   function refresh(){
     var n = parseInt(range.value, 10);
-    var offers = [
-      { name:'Découverte', price: n * 4500 },
-      { name:'Agence',     price: 34900 + Math.max(0, n - 10) * 3300 },
-      { name:'Réseau',     price: 82900 + Math.max(0, n - 30) * 2600 }
-    ];
-    var best = offers.reduce(function(a, b){ return b.price < a.price ? b : a; });
-
     nOut.textContent = n;
     lab.textContent = n > 1 ? 'biens / mois' : 'bien / mois';
+
+    // On ne retient que les formules dont le quota couvre le besoin,
+    // puis la moins chère d'entre elles.
+    var offers = [
+      { name: 'Vidéo à l\'unité', price: n * 7200, quota: Infinity },
+      { name: 'Essentiel',        price: 23900,    quota: 5 },
+      { name: 'Pro',              price: 41800,    quota: 10 },
+      { name: 'Premium',          price: 71600,    quota: 20 }
+    ].filter(function(o){ return n <= o.quota; });
+
+    if (!offers.length) {
+      planOut.textContent = 'Sur mesure';
+      totalOut.textContent = 'Sur devis';
+      unitOut.textContent = 'Au-delà de 20 vidéos par mois, on en discute ensemble';
+      return;
+    }
+    var best = offers.reduce(function(a, b){ return b.price < a.price ? b : a; });
     planOut.textContent = best.name;
     totalOut.textContent = xpf(best.price);
     unitOut.textContent = 'par mois · soit ' + xpf(best.price / n) + ' par vidéo';
