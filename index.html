@@ -617,17 +617,22 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
   /* ---- vidéos : chargées seulement si la connexion suit ---- */
   var vids = document.querySelectorAll('.lazyvid');
   var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  var slow = conn && (conn.saveData || /^(slow-)?2g$/.test(conn.effectiveType || ''));
-  var worthIt = !slow && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // On ne bloque que l'économie de données et la 2G. Le réglage système
+  // "réduire les animations" ne doit pas empêcher la démo de se lancer.
+  var blocked = conn && (conn.saveData || /^(slow-)?2g$/.test(conn.effectiveType || ''));
 
-  if (worthIt && 'IntersectionObserver' in window) {
+  if (!blocked && 'IntersectionObserver' in window) {
     var vio = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         var v = e.target;
         if (e.isIntersecting) {
           if (!v.src) {
             v.src = v.dataset.src;
-            v.addEventListener('canplay', function(){ v.classList.add('on'); }, { once: true });
+            // Plusieurs navigateurs n'émettent pas les mêmes événements :
+            // on affiche la vidéo dès que l'un d'eux se déclenche.
+            ['loadeddata','canplay','playing'].forEach(function(ev){
+              v.addEventListener(ev, function(){ v.classList.add('on'); });
+            });
           }
           var p = v.play();
           if (p && p.catch) p.catch(function(){});
@@ -635,7 +640,7 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
           v.pause();
         }
       });
-    }, { threshold: .25 });
+    }, { threshold: .02, rootMargin: '300px 0px' });
     vids.forEach(function(v){ vio.observe(v); });
   }
 
