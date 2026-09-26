@@ -53,10 +53,10 @@ button,input{font:inherit;color:inherit}
 /* ---------- orbe lumineux ---------- */
 .orb{
   position:fixed;left:0;top:0;z-index:0;pointer-events:none;
-  width:min(46vw,540px);aspect-ratio:1;border-radius:50%;
+  width:min(28vw,310px);aspect-ratio:1;border-radius:50%;
   background:radial-gradient(circle at 50% 50%,
-    rgba(var(--orb),.34), rgba(var(--orb),.14) 40%, rgba(var(--orb),0) 70%);
-  filter:blur(38px);will-change:transform;
+    rgba(var(--orb),.62), rgba(var(--orb),.30) 38%, rgba(var(--orb),0) 70%);
+  filter:blur(26px);will-change:transform;
   transform:translate3d(-50%,-50%,0);
 }
 @media(prefers-reduced-motion:reduce){.orb{display:none}}
