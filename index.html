@@ -261,13 +261,11 @@ h1 .serif{color:var(--coral)}
 .path li{display:flex;flex-direction:column;gap:11px;position:relative}
 .node{
   width:54px;height:54px;border-radius:50%;background:var(--white);
-  border:2px solid var(--coral);color:var(--coral);
+  border:2px solid var(--c);color:var(--c);
   display:flex;align-items:center;justify-content:center;
   font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:25px;
   box-shadow:0 0 0 7px var(--bg);
 }
-.path li:nth-child(2) .node{border-color:var(--lagon);color:var(--lagon)}
-.path li:nth-child(3) .node{background:var(--ink);border-color:var(--ink);color:#fff}
 .path h3{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-top:6px}
 .path p{color:var(--ink-soft);font-size:16px;line-height:1.55}
 .path > .rv:nth-child(2){transition-delay:.13s}
@@ -385,6 +383,75 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
   background:linear-gradient(90deg,var(--coral),var(--lagon));
   transform:scaleX(0);transform-origin:0 50%;
 }
+
+/* ---------- interactions ---------- */
+/* balayage lumineux sur les boutons */
+.btn{position:relative;overflow:hidden}
+.btn::after{
+  content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);
+  transform:skewX(-18deg);transition:left .65s ease;
+}
+.btn:hover::after{left:130%}
+.btn:active{transform:translateY(0) scale(.986)}
+
+/* halo qui suit le curseur sur les cartes */
+.card,.plan,.bnf{position:relative}
+.card,.plan{overflow:hidden}
+@media(hover:hover){
+  .card::after,.plan::after,.bnf::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
+      rgba(255,90,60,.16),transparent 62%);
+    opacity:0;transition:opacity .35s ease;
+  }
+  .bnf::after{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
+      rgba(255,255,255,.10),transparent 62%)}
+  .card:hover::after,.plan:hover::after,.bnf:hover::after{opacity:1}
+}
+
+/* projecteur sur le bandeau sombre */
+.band-inner::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(460px circle at var(--sx,50%) var(--sy,-20%),
+    rgba(255,255,255,.08),transparent 62%);
+  transition:opacity .4s;
+}
+
+/* vignettes du comparateur */
+@media(hover:hover){
+  .mosaic img{pointer-events:auto;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+  .mosaic img:hover{transform:scale(1.07);box-shadow:0 10px 24px rgba(20,22,26,.4);position:relative;z-index:2}
+}
+
+/* liens de navigation */
+.nav-link{position:relative}
+.nav-link::after{
+  content:"";position:absolute;left:13px;right:13px;bottom:5px;height:2px;border-radius:2px;
+  background:var(--coral);transform:scaleX(0);transition:transform .3s cubic-bezier(.2,.7,.2,1);
+}
+.nav-link:hover::after{transform:scaleX(1)}
+.logo .mark{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.logo:hover .mark{transform:scale(1.1) rotate(-4deg)}
+
+/* pastilles du parcours */
+.path li{--c:var(--coral)}
+.path li:nth-child(2){--c:var(--lagon)}
+.path li:nth-child(3){--c:var(--ink)}
+.node{transition:transform .35s cubic-bezier(.2,.7,.2,1),background .3s,color .3s,box-shadow .3s}
+.path li:hover .node{
+  background:var(--c);color:#fff;transform:scale(1.1);
+  box-shadow:0 0 0 7px var(--bg),0 10px 24px rgba(20,22,26,.2);
+}
+
+/* poignée du comparateur */
+.ba:focus-visible{outline:3px solid var(--lagon);outline-offset:3px}
+.ba-knob{transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.ba:hover .ba-knob{transform:scale(1.12);box-shadow:0 10px 30px rgba(20,22,26,.4)}
+
+/* champs du formulaire */
+.field input:focus{box-shadow:0 0 0 4px rgba(18,181,176,.14)}
+.field:focus-within{color:var(--lagon)}
 
 /* ---------- reveal ---------- */
 .rv{opacity:0;transform:translateY(34px) scale(.986);transition:opacity .75s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
@@ -862,6 +929,27 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
     vids.forEach(function(v){ vio.observe(v); });
   }
 
+  /* ---- le curseur éclaire ce qu'il survole ---- */
+  if (window.matchMedia('(hover: hover)').matches) {
+    var lit = document.querySelectorAll('.card, .plan, .bnf');
+    Array.prototype.forEach.call(lit, function(el){
+      el.addEventListener('pointermove', function(ev){
+        var r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', ((ev.clientX - r.left) / r.width * 100) + '%');
+        el.style.setProperty('--my', ((ev.clientY - r.top) / r.height * 100) + '%');
+      });
+    });
+
+    var band = document.querySelector('.band-inner');
+    if (band) {
+      band.addEventListener('pointermove', function(ev){
+        var r = band.getBoundingClientRect();
+        band.style.setProperty('--sx', ((ev.clientX - r.left) / r.width * 100) + '%');
+        band.style.setProperty('--sy', ((ev.clientY - r.top) / r.height * 100) + '%');
+      });
+    }
+  }
+
   /* ---- compteurs de prix ---- */
   var counters = document.querySelectorAll('[data-count]');
   if (counters.length && 'IntersectionObserver' in window) {
@@ -958,6 +1046,18 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
   ba.addEventListener('pointermove', function(e){ if (dragging) setPos(e.clientX); });
   ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
     ba.addEventListener(ev, function(){ dragging = false; });
+  });
+
+  // pilotable au clavier une fois sélectionné
+  ba.setAttribute('tabindex', '0');
+  ba.setAttribute('role', 'slider');
+  ba.setAttribute('aria-label', 'Comparer les photos et la vidéo');
+  ba.addEventListener('keydown', function(e){
+    var step = e.shiftKey ? 12 : 4, cur = parseFloat(handle.style.left) || 50;
+    if (e.key === 'ArrowLeft')       { apply(Math.max(0, cur - step)); touched = true; e.preventDefault(); }
+    else if (e.key === 'ArrowRight') { apply(Math.min(100, cur + step)); touched = true; e.preventDefault(); }
+    else if (e.key === 'Home')       { apply(0); touched = true; e.preventDefault(); }
+    else if (e.key === 'End')        { apply(100); touched = true; e.preventDefault(); }
   });
 
   /* ---- calculateur ---- */
