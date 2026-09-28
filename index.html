@@ -194,7 +194,9 @@ h1 .serif{color:var(--coral)}
 }
 .mosaic img{
   width:calc(33.333% - 6px);height:auto;aspect-ratio:16/9;
-  object-fit:cover;border-radius:7px;filter:saturate(.96);
+  object-fit:cover;border-radius:7px;
+  filter:contrast(1.12) saturate(1.08);
+  box-shadow:0 2px 7px rgba(20,22,26,.22), 0 0 0 1px rgba(20,22,26,.07);
 }
 
 /* Téléphone : petits carrés groupés à gauche, tous entièrement visibles
@@ -312,11 +314,24 @@ footer{
 footer .logo{font-size:17px;color:var(--ink);margin-right:0}
 
 /* ---------- reveal ---------- */
-.rv{opacity:0;transform:translateY(34px);transition:opacity .75s ease,transform .75s cubic-bezier(.2,.7,.2,1)}
+.rv{opacity:0;transform:translateY(34px) scale(.986);transition:opacity .75s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
+/* les cartes d'une même rangée arrivent en cascade */
+.grid > .rv:nth-child(2){transition-delay:.11s}
+.grid > .rv:nth-child(3){transition-delay:.22s}
+
+/* mots des titres */
+.w{
+  display:inline-block;opacity:0;
+  transform:translateY(20px) rotate(2deg);
+  transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.in .w{opacity:1;transform:none}
+
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition-duration:.01ms!important}
   .rv{opacity:1;transform:none}
+  .w{opacity:1;transform:none}
 }
 .pad{padding-top:clamp(84px,13vw,146px)}
 .head{display:flex;flex-direction:column;gap:14px;margin-bottom:38px}
@@ -611,6 +626,37 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
 <script>
 (function(){
   "use strict";
+
+  /* ---- titres décomposés en mots ---- */
+  function splitWords(el){
+    var i = 0;
+    (function walk(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(n){
+        if (n.nodeType === 3) {
+          if (!n.textContent.trim()) return;
+          var frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function(part){
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var s = document.createElement('span');
+            s.className = 'w';
+            s.style.transitionDelay = (i++ * 55) + 'ms';
+            s.textContent = part;
+            frag.appendChild(s);
+          });
+          node.replaceChild(frag, n);
+        } else if (n.nodeType === 1 && !n.classList.contains('w')) {
+          walk(n);
+        }
+      });
+    })(el);
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('h1, h2'), splitWords);
+
+  // le titre du hero est visible d'emblée : on le lance au chargement
+  var h1 = document.querySelector('h1');
+  if (h1) requestAnimationFrame(function(){ h1.classList.add('in'); });
 
   /* ---- orbe lumineux qui descend en serpentant ---- */
   var orb = document.getElementById('orb');
