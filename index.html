@@ -292,23 +292,67 @@ h1 .serif{color:var(--coral)}
   box-shadow:0 12px 30px rgba(20,22,26,.06);
   display:flex;align-items:center;gap:9px;flex-wrap:wrap;
 }
-.viz img{width:46px;height:46px;object-fit:cover;border-radius:10px;animation:none}
+/* 1 : les photos arrivent une à une, en boucle */
+.viz img{
+  width:46px;height:46px;object-fit:cover;border-radius:10px;
+  animation:dropin 6s cubic-bezier(.2,.7,.2,1) infinite;
+}
+.viz img:nth-child(2){animation-delay:.45s}
+.viz img:nth-child(3){animation-delay:.9s}
+@keyframes dropin{
+  0%{opacity:0;transform:translateY(14px) scale(.7) rotate(-6deg)}
+  14%,76%{opacity:1;transform:none}
+  90%,100%{opacity:0;transform:translateY(-8px) scale(.94)}
+}
 .viz-tag{font-size:13px;font-weight:600;color:var(--ink-mute);margin-left:2px}
-.strip{display:flex;gap:4px;align-items:center}
+.viz-tag::before{
+  content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--coral);margin-right:6px;vertical-align:1px;
+  animation:blink 1.6s infinite;
+}
+
+/* 2 : une tête de lecture balaie la bande de montage */
+.strip{display:flex;gap:4px;align-items:center;position:relative;padding:4px 0}
 .strip i{
   width:16px;height:40px;border-radius:4px;display:block;
   background:linear-gradient(180deg,#E7ECEF,#D4DBE0);
+  animation:beat 3.4s ease-in-out infinite;
 }
-.strip i:nth-child(odd){background:linear-gradient(180deg,#FFD9CF,#FFB6A3)}
-.strip i:nth-child(3){background:var(--coral)}
+.strip i:nth-child(1){animation-delay:0s}
+.strip i:nth-child(2){animation-delay:.28s}
+.strip i:nth-child(3){animation-delay:.56s}
+.strip i:nth-child(4){animation-delay:.84s}
+.strip i:nth-child(5){animation-delay:1.12s}
+.strip i:nth-child(6){animation-delay:1.4s}
+@keyframes beat{
+  0%,100%{transform:scaleY(1);background:linear-gradient(180deg,#E7ECEF,#D4DBE0)}
+  18%{transform:scaleY(1.22);background:linear-gradient(180deg,#FFB6A3,#FF5A3C)}
+  40%{transform:scaleY(1);background:linear-gradient(180deg,#E7ECEF,#D4DBE0)}
+}
+.strip::after{
+  content:"";position:absolute;top:0;bottom:0;left:0;width:2px;border-radius:2px;
+  background:var(--coral);box-shadow:0 0 10px rgba(255,90,60,.8);
+  animation:scan 3.4s linear infinite;
+}
+@keyframes scan{0%{left:-2px;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:100%;opacity:0}}
+
+/* 3 : les formats se remplissent l'un après l'autre, comme un export */
 .fmt{
   display:flex;align-items:center;justify-content:center;
-  border-radius:7px;border:1.5px solid var(--ink);
+  border-radius:7px;border:1.5px solid var(--ink);color:var(--ink);
   font-size:11px;font-weight:700;letter-spacing:.02em;
+  background-image:linear-gradient(180deg,var(--ink) 50%,transparent 50%);
+  background-size:100% 200%;background-position:0 100%;
+  animation:render 5.4s ease-in-out infinite;
 }
 .fmt.tall{width:32px;height:54px}
-.fmt.square{width:44px;height:44px}
-.fmt.wide{width:64px;height:38px;background:var(--ink);color:#fff;border-color:var(--ink)}
+.fmt.square{width:44px;height:44px;animation-delay:.6s}
+.fmt.wide{width:64px;height:38px;animation-delay:1.2s}
+@keyframes render{
+  0%,6%{background-position:0 100%;color:var(--ink)}
+  26%,62%{background-position:0 0;color:#fff}
+  82%,100%{background-position:0 100%;color:var(--ink)}
+}
 
 /* relance en fin de section */
 .path-cta{
