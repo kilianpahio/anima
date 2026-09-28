@@ -520,11 +520,11 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
         <small>Sur un de vos biens, pour juger sur pièce</small>
       </div>
       <div class="entry-item">
-        <b>7 200 XPF <i>60 €</i></b>
+        <b><span data-count="7200">7 200 XPF</span> <i>60 €</i></b>
         <small>La vidéo à l'unité, sans engagement</small>
       </div>
       <div class="entry-item">
-        <b>29 800 XPF <i>250 €</i></b>
+        <b><span data-count="29800">29 800 XPF</span> <i>250 €</i></b>
         <small>Le pack de 5 vidéos</small>
       </div>
     </div>
@@ -532,7 +532,7 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
     <div class="grid plans">
       <article class="plan rv">
         <h3>Essentiel</h3>
-        <div class="price"><b>23 900 XPF</b><span>/ mois</span></div>
+        <div class="price"><b data-count="23900">23 900 XPF</b><span>/ mois</span></div>
         <div class="price-eur">environ 200 € par mois</div>
         <ul class="feats">
           <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>5 vidéos par mois</li>
@@ -547,7 +547,7 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
           <h3>Pro</h3>
           <span class="badge-hot">Le plus choisi</span>
         </div>
-        <div class="price"><b>41 800 XPF</b><span>/ mois</span></div>
+        <div class="price"><b data-count="41800">41 800 XPF</b><span>/ mois</span></div>
         <div class="price-eur">environ 350 € par mois</div>
         <ul class="feats">
           <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>10 vidéos par mois</li>
@@ -560,7 +560,7 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
 
       <article class="plan rv">
         <h3>Premium</h3>
-        <div class="price"><b>71 600 XPF</b><span>/ mois</span></div>
+        <div class="price"><b data-count="71600">71 600 XPF</b><span>/ mois</span></div>
         <div class="price-eur">environ 600 € par mois</div>
         <ul class="feats">
           <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>20 vidéos par mois</li>
@@ -794,6 +794,42 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
       });
     }, { threshold: .02, rootMargin: '300px 0px' });
     vids.forEach(function(v){ vio.observe(v); });
+  }
+
+  /* ---- compteurs de prix ---- */
+  var counters = document.querySelectorAll('[data-count]');
+  if (counters.length && 'IntersectionObserver' in window) {
+    var countUp = function(el, delay){
+      var end = parseInt(el.getAttribute('data-count'), 10);
+      if (isNaN(end)) return;
+      el.textContent = '0 XPF';
+      var t0 = null, dur = 1250;
+      setTimeout(function(){
+        requestAnimationFrame(function step(now){
+          if (t0 === null) t0 = now;
+          var k = Math.min(1, (now - t0) / dur);
+          var e = 1 - Math.pow(1 - k, 3);   // départ rapide, arrivée douce
+          el.textContent = Math.round(end * e).toLocaleString('fr-FR') + ' XPF';
+          if (k < 1) requestAnimationFrame(step);
+        });
+      }, delay);
+    };
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var el = e.target;
+        if (e.isIntersecting) {
+          if (el.dataset.running) return;
+          el.dataset.running = '1';
+          countUp(el, (+el.dataset.rank || 0) * 130);
+        } else {
+          delete el.dataset.running;   // rejoué au prochain passage
+        }
+      });
+    }, { threshold: .6 });
+    Array.prototype.forEach.call(counters, function(el, i){
+      el.dataset.rank = i % 3;
+      cio.observe(el);
+    });
   }
 
   /* ---- slider avant / après ---- */
