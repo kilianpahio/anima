@@ -97,7 +97,9 @@ h2{
 .btn:hover .arrow{transform:translateX(4px)}
 
 /* ---------- nav ---------- */
-.nav-holder{position:fixed;top:12px;left:0;right:0;z-index:60;display:flex;justify-content:center;padding-inline:14px;padding-top:env(safe-area-inset-top,0px);pointer-events:none}
+.nav-holder{position:fixed;top:12px;left:0;right:0;z-index:60;display:flex;justify-content:center;padding-inline:14px;padding-top:env(safe-area-inset-top,0px);pointer-events:none;
+  transition:transform .4s cubic-bezier(.2,.7,.2,1),opacity .3s ease}
+.nav-holder.hide{transform:translateY(-150%);opacity:0}
 nav{
   pointer-events:auto;display:flex;align-items:center;gap:4px;width:100%;max-width:620px;
   padding:6px 6px 6px 18px;border-radius:999px;
@@ -313,9 +315,20 @@ footer{
 }
 footer .logo{font-size:17px;color:var(--ink);margin-right:0}
 
+/* ---------- barre de progression ---------- */
+.progress{
+  position:fixed;top:0;left:0;right:0;height:3px;z-index:70;pointer-events:none;
+  background:linear-gradient(90deg,var(--coral),var(--lagon));
+  transform:scaleX(0);transform-origin:0 50%;
+}
+
 /* ---------- reveal ---------- */
 .rv{opacity:0;transform:translateY(34px) scale(.986);transition:opacity .75s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
+/* sorti par le haut : il repartira vers le bas quand on remontera */
+.rv.above{transform:translateY(-30px) scale(.986)}
+.hero-media{will-change:transform}
+.hero-top{will-change:transform,opacity}
 /* les cartes d'une même rangée arrivent en cascade */
 .grid > .rv:nth-child(2){transition-delay:.11s}
 .grid > .rv:nth-child(3){transition-delay:.22s}
@@ -342,6 +355,7 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
 </head>
 <body>
 
+<div class="progress" id="bar" aria-hidden="true"></div>
 <div class="orb" id="orb" aria-hidden="true"></div>
 
 <div class="nav-holder">
@@ -697,16 +711,60 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        var el = e.target;
+        if (e.isIntersecting) {
+          el.classList.remove('above');
+          el.classList.add('in');
+        } else {
+          // on rejoue l'animation au repassage, dans le sens où l'on arrive
+          el.classList.remove('in');
+          el.classList.toggle('above', e.boundingClientRect.top < 0);
+        }
       });
     }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
     items.forEach(function(el){
-      if (el.getBoundingClientRect().top < window.innerHeight) { el.classList.add('in'); return; }
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
       io.observe(el);
     });
   } else {
     items.forEach(function(el){ el.classList.add('in'); });
   }
+
+  /* ---- réactions au sens du scroll ---- */
+  var bar = document.getElementById('bar'),
+      navH = document.querySelector('.nav-holder'),
+      heroTop = document.querySelector('.hero-top'),
+      heroMedia = document.querySelector('.hero-media'),
+      lastY = window.scrollY,
+      calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function onScrollFrame(){
+    var y = window.scrollY,
+        max = document.documentElement.scrollHeight - window.innerHeight,
+        h = window.innerHeight;
+
+    // progression de lecture
+    if (bar) bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
+
+    // la barre de navigation s'efface en descendant, revient en remontant
+    if (navH) {
+      if (y > 150 && y > lastY + 3) navH.classList.add('hide');
+      else if (y < lastY - 3 || y < 150) navH.classList.remove('hide');
+    }
+
+    // parallaxe du hero : le fond suit moins vite que le texte
+    if (!calm && y < h * 1.1) {
+      if (heroMedia) heroMedia.style.transform = 'translate3d(0,' + (y * .16).toFixed(1) + 'px,0) scale(1.06)';
+      if (heroTop) {
+        heroTop.style.transform = 'translate3d(0,' + (y * .3).toFixed(1) + 'px,0)';
+        heroTop.style.opacity = Math.max(0, 1 - y / (h * .7));
+      }
+    }
+
+    lastY = y;
+    requestAnimationFrame(onScrollFrame);
+  }
+  requestAnimationFrame(onScrollFrame);
 
   /* ---- vidéos : chargées seulement si la connexion suit ---- */
   var vids = document.querySelectorAll('.lazyvid');
