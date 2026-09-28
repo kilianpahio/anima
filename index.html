@@ -11,7 +11,7 @@
 <meta property="og:image" content="photos/piscine.jpg">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='16' y='6' width='40' height='30' rx='7' fill='%23FFD3C8'/%3E%3Crect x='10' y='13' width='44' height='33' rx='7' fill='%23FF9D86'/%3E%3Crect x='4' y='21' width='48' height='37' rx='8' fill='%23FF5A3C'/%3E%3Cpath d='M22 31.5l12 7.5-12 7.5z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='16' y='6' width='40' height='30' rx='7' fill='%23E8C7BC'/%3E%3Crect x='10' y='13' width='44' height='33' rx='7' fill='%23CE8672'/%3E%3Crect x='4' y='21' width='48' height='37' rx='8' fill='%23B65E45'/%3E%3Cpath d='M22 31.5l12 7.5-12 7.5z' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -26,15 +26,15 @@
   --bg:#FAFAF8;
   --white:#FFFFFF;
   --line:rgba(20,22,26,.08);
-  --coral:#FF5A3C;
-  --coral-deep:#E8421F;
-  --lagon:#12B5B0;
-  --lagon-soft:#E6F7F6;
-  --coral-soft:#FFF0EC;
+  --coral:#B65E45;
+  --coral-deep:#96482F;
+  --lagon:#2E8B87;
+  --lagon-soft:#EAF2F1;
+  --coral-soft:#F6EDE9;
   --r-lg:28px;
   --r-md:22px;
   --r-sm:16px;
-  --orb:255,90,60;
+  --orb:182,94,69;
   color-scheme:light;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -68,7 +68,7 @@ section{position:relative}
   display:inline-block;padding:6px 13px;border-radius:999px;
   font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
 }
-.eyebrow.lagon{background:var(--lagon-soft);color:#0A7D79}
+.eyebrow.lagon{background:var(--lagon-soft);color:#276B68}
 .eyebrow.coral{background:var(--coral-soft);color:var(--coral-deep)}
 h2{
   font-weight:300;font-size:clamp(32px,6.2vw,60px);line-height:1.03;
@@ -83,8 +83,8 @@ h2{
   font-size:16px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;
   transition:transform .22s cubic-bezier(.2,.7,.2,1),box-shadow .22s,background .22s,color .22s;
 }
-.btn-primary{background:var(--coral);color:#fff;box-shadow:0 10px 26px rgba(255,90,60,.34)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(255,90,60,.44);color:#fff}
+.btn-primary{background:var(--coral);color:#fff;box-shadow:0 10px 26px rgba(182,94,69,.34)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(182,94,69,.44);color:#fff}
 .btn-dark{background:var(--ink);color:#fff}
 .btn-dark:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(20,22,26,.28);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.82);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
@@ -237,17 +237,17 @@ h1 .serif{color:var(--coral)}
 .bnf h3{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-top:6px}
 .bnf p{color:#B4B9C1;font-size:16px;line-height:1.55}
 .bnf .ico{
-  background:rgba(18,181,176,.22);
+  background:rgba(46,139,135,.22);
   border:1px solid rgba(127,227,224,.42);
   box-shadow:0 8px 22px rgba(0,0,0,.35);
 }
 .bnf:nth-child(3) .ico{
-  background:rgba(255,90,60,.22);
+  background:rgba(182,94,69,.22);
   border-color:rgba(255,142,118,.45);
 }
 .bnf .ico.hot{
   background:var(--coral);border-color:transparent;
-  box-shadow:0 10px 26px rgba(255,90,60,.45);
+  box-shadow:0 10px 26px rgba(182,94,69,.45);
 }
 
 /* ---------- parcours des étapes ---------- */
@@ -264,7 +264,7 @@ h1 .serif{color:var(--coral)}
   content:"";position:absolute;top:25px;left:9%;height:4px;border-radius:3px;
   width:calc((100% - 18%) * var(--fill,0));
   background:linear-gradient(90deg,var(--coral),var(--lagon));
-  box-shadow:0 0 14px rgba(255,90,60,.45);
+  box-shadow:0 0 14px rgba(182,94,69,.45);
   transition:width .18s linear;
 }
 .path li.lit .node{
@@ -326,12 +326,12 @@ h1 .serif{color:var(--coral)}
 .strip i:nth-child(6){animation-delay:1.4s}
 @keyframes beat{
   0%,100%{transform:scaleY(1);background:linear-gradient(180deg,#E7ECEF,#D4DBE0)}
-  18%{transform:scaleY(1.22);background:linear-gradient(180deg,#FFB6A3,#FF5A3C)}
+  18%{transform:scaleY(1.22);background:linear-gradient(180deg,#D3A08E,#B65E45)}
   40%{transform:scaleY(1);background:linear-gradient(180deg,#E7ECEF,#D4DBE0)}
 }
 .strip::after{
   content:"";position:absolute;top:0;bottom:0;left:0;width:2px;border-radius:2px;
-  background:var(--coral);box-shadow:0 0 10px rgba(255,90,60,.8);
+  background:var(--coral);box-shadow:0 0 10px rgba(182,94,69,.8);
   animation:scan 3.4s linear infinite;
 }
 @keyframes scan{0%{left:-2px;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:100%;opacity:0}}
@@ -421,7 +421,7 @@ h1 .serif{color:var(--coral)}
 .feats li{list-style:none;display:flex;gap:10px;align-items:flex-start}
 .feats svg{flex:none;margin-top:4px}
 .plan .btn{width:100%;margin-top:auto}
-.plan.featured{background:var(--ink);color:#fff;border-color:transparent;box-shadow:0 30px 66px rgba(255,90,60,.22)}
+.plan.featured{background:var(--ink);color:#fff;border-color:transparent;box-shadow:0 30px 66px rgba(182,94,69,.22)}
 .plan.featured .feats{color:#DDE0E4}
 .plan.featured:hover{transform:translateY(-7px)}
 .plan-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -457,7 +457,7 @@ form{display:flex;flex-direction:column;gap:14px}
 .form-box{padding:clamp(22px,4vw,34px);border-radius:26px;background:#fff;border:1px solid var(--line);box-shadow:0 30px 66px rgba(20,22,26,.08)}
 form .btn{margin-top:6px;width:100%}
 .done{display:none;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:34px 0}
-.done span.tick{width:58px;height:58px;border-radius:50%;background:var(--lagon-soft);color:#0A7D79;display:flex;align-items:center;justify-content:center;font-size:25px}
+.done span.tick{width:58px;height:58px;border-radius:50%;background:var(--lagon-soft);color:#276B68;display:flex;align-items:center;justify-content:center;font-size:25px}
 .done h3{font-size:26px;font-weight:600;letter-spacing:-.02em}
 .done p{color:var(--ink-soft)}
 .wa-ico{width:22px;height:22px;border-radius:50%;background:#0A2E18;color:#25D366;display:flex;align-items:center;justify-content:center;font-size:12px}
@@ -496,7 +496,7 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
   .card::after,.plan::after,.bnf::after{
     content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
     background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
-      rgba(255,90,60,.16),transparent 62%);
+      rgba(182,94,69,.16),transparent 62%);
     opacity:0;transition:opacity .35s ease;
   }
   .bnf::after{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
@@ -548,7 +548,7 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
 .ba:hover .ba-knob{transform:scale(1.12);box-shadow:0 10px 30px rgba(20,22,26,.4)}
 
 /* champs du formulaire */
-.field input:focus{box-shadow:0 0 0 4px rgba(18,181,176,.14)}
+.field input:focus{box-shadow:0 0 0 4px rgba(46,139,135,.14)}
 .field:focus-within{color:var(--lagon)}
 
 /* ---------- reveal ---------- */
@@ -591,9 +591,9 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
   <nav>
     <a href="#top" class="logo">
       <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
-        <rect x="16" y="6" width="40" height="30" rx="7" fill="#FFD3C8"/>
-        <rect x="10" y="13" width="44" height="33" rx="7" fill="#FF9D86"/>
-        <rect x="4" y="21" width="48" height="37" rx="8" fill="#FF5A3C"/>
+        <rect x="16" y="6" width="40" height="30" rx="7" fill="#E8C7BC"/>
+        <rect x="10" y="13" width="44" height="33" rx="7" fill="#CE8672"/>
+        <rect x="4" y="21" width="48" height="37" rx="8" fill="#B65E45"/>
         <path d="M22 31.5l12 7.5-12 7.5z" fill="#fff"/>
       </svg>Anima</a>
     <a href="#demo" class="nav-link">Démo</a>
@@ -685,7 +685,7 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
       <div class="grid g3">
         <article class="bnf rv">
           <div class="ico">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#7FE3E0" stroke-width="2"><ellipse cx="13" cy="13" rx="11" ry="7"/><circle cx="13" cy="13" r="3"/></svg>
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#8FC9C6" stroke-width="2"><ellipse cx="13" cy="13" rx="11" ry="7"/><circle cx="13" cy="13" r="3"/></svg>
           </div>
           <h3>Plus de vues</h3>
           <p>Une vidéo attire l'œil dans le fil d'actualité. Vos biens sont vus, et revus.</p>
@@ -699,7 +699,7 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
         </article>
         <article class="bnf rv">
           <div class="ico">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="#FF8E76"><path d="M13 2l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></svg>
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="#D08A72"><path d="M13 2l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></svg>
           </div>
           <h3>Une agence moderne</h3>
           <p>Des réseaux soignés, aux couleurs de votre agence. Vous sortez du lot.</p>
@@ -786,9 +786,9 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
         <div class="price"><b data-count="23900">23 900 XPF</b><span>/ mois</span></div>
         <div class="price-eur">environ 200 € par mois</div>
         <ul class="feats">
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>5 vidéos par mois</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>2 formats</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Livraison sous 48 h</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#2E8B87" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>5 vidéos par mois</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#2E8B87" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>2 formats</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#2E8B87" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Livraison sous 48 h</li>
         </ul>
         <a href="#contact" class="btn btn-line">Choisir</a>
       </article>
@@ -801,10 +801,10 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
         <div class="price"><b data-count="41800">41 800 XPF</b><span>/ mois</span></div>
         <div class="price-eur">environ 350 € par mois</div>
         <ul class="feats">
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>10 vidéos par mois</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>2 formats</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Voix off incluse</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FF5A3C" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Priorité de livraison</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#B65E45" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>10 vidéos par mois</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#B65E45" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>2 formats</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#B65E45" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Voix off incluse</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#B65E45" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Priorité de livraison</li>
         </ul>
         <a href="#contact" class="btn btn-primary">Essai gratuit</a>
       </article>
@@ -814,9 +814,9 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
         <div class="price"><b data-count="71600">71 600 XPF</b><span>/ mois</span></div>
         <div class="price-eur">environ 600 € par mois</div>
         <ul class="feats">
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>20 vidéos par mois</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Voix off et version anglaise</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#12B5B0" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Publication sur vos réseaux</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#2E8B87" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>20 vidéos par mois</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#2E8B87" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Voix off et version anglaise</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#2E8B87" stroke-width="2.4" stroke-linecap="round"><path d="M3 8.5l3.5 3.5L13 4.5"/></svg>Publication sur vos réseaux</li>
         </ul>
         <a href="#contact" class="btn btn-line">Choisir</a>
       </article>
@@ -878,9 +878,9 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
     <footer>
       <span class="logo">
         <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
-          <rect x="16" y="6" width="40" height="30" rx="7" fill="#FFD3C8"/>
-          <rect x="10" y="13" width="44" height="33" rx="7" fill="#FF9D86"/>
-          <rect x="4" y="21" width="48" height="37" rx="8" fill="#FF5A3C"/>
+          <rect x="16" y="6" width="40" height="30" rx="7" fill="#E8C7BC"/>
+          <rect x="10" y="13" width="44" height="33" rx="7" fill="#CE8672"/>
+          <rect x="4" y="21" width="48" height="37" rx="8" fill="#B65E45"/>
           <path d="M22 31.5l12 7.5-12 7.5z" fill="#fff"/>
         </svg>Anima<em class="serif" style="font-size:15px;color:var(--ink-mute);font-weight:400;margin-left:4px">donnez vie à vos photos</em></span>
       <span>Polynésie française</span>
@@ -1237,7 +1237,7 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
     e.preventDefault();
     var ok = true;
     Array.prototype.forEach.call(form.querySelectorAll('input[required]'), function(input){
-      if (!input.value.trim()) { input.style.borderColor = '#FF5A3C'; ok = false; }
+      if (!input.value.trim()) { input.style.borderColor = '#B65E45'; ok = false; }
       else { input.style.borderColor = ''; }
     });
     if (!ok) return;
