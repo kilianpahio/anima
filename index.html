@@ -271,7 +271,8 @@ h1 .serif{color:var(--coral)}
   background:var(--c);color:#fff;
   box-shadow:0 0 0 7px var(--bg),0 10px 24px rgba(20,22,26,.22);
 }
-.path li{display:flex;flex-direction:column;gap:11px;position:relative}
+.path li{display:flex;flex-direction:column;gap:11px;position:relative;z-index:1}
+.path::before,.path::after{z-index:0}
 .node{
   width:54px;height:54px;border-radius:50%;background:var(--white);
   border:2px solid var(--c);color:var(--c);
