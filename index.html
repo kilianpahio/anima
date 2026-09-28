@@ -235,8 +235,19 @@ h1 .serif{color:var(--coral)}
 .bnf{display:flex;flex-direction:column;gap:12px}
 .bnf h3{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-top:6px}
 .bnf p{color:#B4B9C1;font-size:16px;line-height:1.55}
-.bnf .ico{background:rgba(255,255,255,.09)}
-.bnf .ico.hot{background:var(--coral)}
+.bnf .ico{
+  background:rgba(18,181,176,.22);
+  border:1px solid rgba(127,227,224,.42);
+  box-shadow:0 8px 22px rgba(0,0,0,.35);
+}
+.bnf:nth-child(3) .ico{
+  background:rgba(255,90,60,.22);
+  border-color:rgba(255,142,118,.45);
+}
+.bnf .ico.hot{
+  background:var(--coral);border-color:transparent;
+  box-shadow:0 10px 26px rgba(255,90,60,.45);
+}
 
 /* ---------- parcours des étapes ---------- */
 .path{
