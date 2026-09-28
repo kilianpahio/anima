@@ -257,7 +257,19 @@ h1 .serif{color:var(--coral)}
 }
 .path::before{
   content:"";position:absolute;top:26px;left:9%;right:9%;height:2px;
-  background:repeating-linear-gradient(90deg,rgba(20,22,26,.22) 0 7px,transparent 7px 15px);
+  background:repeating-linear-gradient(90deg,rgba(20,22,26,.18) 0 7px,transparent 7px 15px);
+}
+/* la barre qui se remplit au fil de la lecture */
+.path::after{
+  content:"";position:absolute;top:25px;left:9%;height:4px;border-radius:3px;
+  width:calc((100% - 18%) * var(--fill,0));
+  background:linear-gradient(90deg,var(--coral),var(--lagon));
+  box-shadow:0 0 14px rgba(255,90,60,.45);
+  transition:width .18s linear;
+}
+.path li.lit .node{
+  background:var(--c);color:#fff;
+  box-shadow:0 0 0 7px var(--bg),0 10px 24px rgba(20,22,26,.22);
 }
 .path li{display:flex;flex-direction:column;gap:11px;position:relative}
 .node{
@@ -274,7 +286,10 @@ h1 .serif{color:var(--coral)}
 @media(max-width:700px){
   .path{grid-template-columns:1fr;gap:26px;padding-left:12px}
   .path::before{top:10px;bottom:10px;left:38px;right:auto;width:2px;height:auto;
-    background:repeating-linear-gradient(180deg,rgba(20,22,26,.22) 0 7px,transparent 7px 15px)}
+    background:repeating-linear-gradient(180deg,rgba(20,22,26,.18) 0 7px,transparent 7px 15px)}
+  .path::after{top:10px;left:37px;width:4px;height:calc((100% - 20px) * var(--fill,0));
+    transition:height .18s linear;
+    background:linear-gradient(180deg,var(--coral),var(--lagon))}
   .path li{padding-left:74px}
   .node{position:absolute;left:0;top:0}
 }
@@ -873,6 +888,8 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
       navH = document.querySelector('.nav-holder'),
       heroTop = document.querySelector('.hero-top'),
       heroMedia = document.querySelector('.hero-media'),
+      pathEl = document.querySelector('.path'),
+      pathLis = document.querySelectorAll('.path li'),
       lastY = window.scrollY,
       calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -888,6 +905,17 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
     if (navH) {
       if (y > 150 && y > lastY + 3) navH.classList.add('hide');
       else if (y < lastY - 3 || y < 150) navH.classList.remove('hide');
+    }
+
+    // la barre des étapes se remplit à mesure que la section défile
+    if (pathEl) {
+      var pr = pathEl.getBoundingClientRect();
+      var prog = (h * .82 - pr.top) / (pr.height + h * .3);
+      prog = Math.max(0, Math.min(1, prog));
+      pathEl.style.setProperty('--fill', prog);
+      for (var s = 0; s < pathLis.length; s++) {
+        pathLis[s].classList.toggle('lit', prog >= [.10, .45, .82][s]);
+      }
     }
 
     // parallaxe du hero : le fond suit moins vite que le texte
