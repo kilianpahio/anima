@@ -284,6 +284,39 @@ h1 .serif{color:var(--coral)}
 .path p{color:var(--ink-soft);font-size:16px;line-height:1.55}
 .path > .rv:nth-child(2){transition-delay:.13s}
 .path > .rv:nth-child(3){transition-delay:.26s}
+
+/* aperçu concret sous chaque étape */
+.viz{
+  margin-top:10px;padding:14px;border-radius:16px;min-height:96px;
+  background:var(--white);border:1px solid var(--line);
+  box-shadow:0 12px 30px rgba(20,22,26,.06);
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+}
+.viz img{width:46px;height:46px;object-fit:cover;border-radius:10px;animation:none}
+.viz-tag{font-size:13px;font-weight:600;color:var(--ink-mute);margin-left:2px}
+.strip{display:flex;gap:4px;align-items:center}
+.strip i{
+  width:16px;height:40px;border-radius:4px;display:block;
+  background:linear-gradient(180deg,#E7ECEF,#D4DBE0);
+}
+.strip i:nth-child(odd){background:linear-gradient(180deg,#FFD9CF,#FFB6A3)}
+.strip i:nth-child(3){background:var(--coral)}
+.fmt{
+  display:flex;align-items:center;justify-content:center;
+  border-radius:7px;border:1.5px solid var(--ink);
+  font-size:11px;font-weight:700;letter-spacing:.02em;
+}
+.fmt.tall{width:32px;height:54px}
+.fmt.square{width:44px;height:44px}
+.fmt.wide{width:64px;height:38px;background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* relance en fin de section */
+.path-cta{
+  margin-top:34px;padding:22px 26px;border-radius:22px;
+  background:linear-gradient(120deg,var(--lagon-soft),var(--coral-soft));
+  display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+}
+.path-cta p{font-size:17px;font-weight:500;max-width:52ch;margin:0}
 @media(max-width:700px){
   .path{grid-template-columns:1fr;gap:26px;padding-left:12px}
   .path::before{top:10px;bottom:10px;left:38px;right:auto;width:2px;height:auto;
@@ -644,18 +677,38 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
         <span class="node">1</span>
         <h3>Vous envoyez photos et plans</h3>
         <p>Les photos de l'annonce et les plans du bien, par WhatsApp, e-mail ou lien. Rien de plus.</p>
+        <div class="viz">
+          <img src="photos/piscine.jpg" alt="">
+          <img src="photos/terrasse.jpg" alt="">
+          <img src="photos/chambre-1.jpg" alt="">
+          <span class="viz-tag">7 photos · 1 plan</span>
+        </div>
       </li>
       <li class="rv">
         <span class="node">2</span>
         <h3>J'anime</h3>
         <p>Mouvements de caméra, textes, logo et musique. À votre image.</p>
+        <div class="viz">
+          <span class="strip"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="viz-tag">Montage et habillage</span>
+        </div>
       </li>
       <li class="rv">
         <span class="node">3</span>
         <h3>Vous publiez</h3>
         <p>Vidéo livrée sous 48 h, aux bons formats pour chaque réseau.</p>
+        <div class="viz">
+          <b class="fmt tall">9:16</b>
+          <b class="fmt square">1:1</b>
+          <b class="fmt wide">16:9</b>
+        </div>
       </li>
     </ol>
+
+    <div class="path-cta rv">
+      <p>Envoyez-moi un bien, je vous montre le résultat avant que vous décidiez quoi que ce soit.</p>
+      <a href="#contact" class="btn btn-dark">Essai gratuit <span class="arrow">→</span></a>
+    </div>
   </div>
 </section>
 
