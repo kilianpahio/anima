@@ -216,6 +216,59 @@ h1 .serif{color:var(--coral)}
   .ba-lower{left:12px;bottom:22px}
 }
 
+/* ---------- bandeau sombre pleine largeur ---------- */
+.band{padding:clamp(70px,11vw,120px) 10px 0}
+.band-inner{
+  position:relative;overflow:hidden;background:var(--ink);color:#fff;
+  border-radius:var(--r-lg);padding:clamp(46px,7.5vw,88px) 0 clamp(48px,8vw,92px);
+}
+.band-inner::after{
+  content:"";position:absolute;width:640px;height:640px;top:-300px;right:-220px;
+  background:radial-gradient(circle,rgba(255,90,60,.30),transparent 62%);
+  pointer-events:none;
+}
+.band .wrap{position:relative;z-index:1}
+.band .eyebrow{background:rgba(255,255,255,.12);color:#fff}
+.band h2{color:#fff}
+.band .serif{color:var(--coral)}
+.huge{font-size:clamp(33px,7.6vw,78px);line-height:1.01;letter-spacing:-.035em}
+.bnf{display:flex;flex-direction:column;gap:12px}
+.bnf h3{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-top:6px}
+.bnf p{color:#B4B9C1;font-size:16px;line-height:1.55}
+.bnf .ico{background:rgba(255,255,255,.09)}
+.bnf .ico.hot{background:var(--coral)}
+
+/* ---------- parcours des étapes ---------- */
+.path{
+  position:relative;list-style:none;display:grid;gap:30px;
+  grid-template-columns:repeat(3,1fr);
+}
+.path::before{
+  content:"";position:absolute;top:26px;left:9%;right:9%;height:2px;
+  background:repeating-linear-gradient(90deg,rgba(20,22,26,.22) 0 7px,transparent 7px 15px);
+}
+.path li{display:flex;flex-direction:column;gap:11px;position:relative}
+.node{
+  width:54px;height:54px;border-radius:50%;background:var(--white);
+  border:2px solid var(--coral);color:var(--coral);
+  display:flex;align-items:center;justify-content:center;
+  font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:25px;
+  box-shadow:0 0 0 7px var(--bg);
+}
+.path li:nth-child(2) .node{border-color:var(--lagon);color:var(--lagon)}
+.path li:nth-child(3) .node{background:var(--ink);border-color:var(--ink);color:#fff}
+.path h3{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-top:6px}
+.path p{color:var(--ink-soft);font-size:16px;line-height:1.55}
+.path > .rv:nth-child(2){transition-delay:.13s}
+.path > .rv:nth-child(3){transition-delay:.26s}
+@media(max-width:700px){
+  .path{grid-template-columns:1fr;gap:26px;padding-left:12px}
+  .path::before{top:10px;bottom:10px;left:38px;right:auto;width:2px;height:auto;
+    background:repeating-linear-gradient(180deg,rgba(20,22,26,.22) 0 7px,transparent 7px 15px)}
+  .path li{padding-left:74px}
+  .node{position:absolute;left:0;top:0}
+}
+
 /* ---------- cartes ---------- */
 .grid{display:grid;gap:14px}
 .g3{grid-template-columns:repeat(auto-fit,minmax(258px,1fr))}
@@ -446,34 +499,36 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
 </section>
 
 <!-- ============ POURQUOI ============ -->
-<section class="pad">
-  <div class="wrap">
-    <div class="head rv">
-      <span class="eyebrow coral">Pourquoi ça marche</span>
-      <h2>La vidéo <span class="serif">arrête le scroll.</span></h2>
-    </div>
-    <div class="grid g3">
-      <article class="card rv">
-        <div class="ico lagon">
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#0A7D79" stroke-width="2"><ellipse cx="13" cy="13" rx="11" ry="7"/><circle cx="13" cy="13" r="3"/></svg>
-        </div>
-        <h3>Plus de vues</h3>
-        <p>Une vidéo attire l'œil dans le fil d'actualité. Vos biens sont vus, et revus.</p>
-      </article>
-      <article class="card dark rv">
-        <div class="ico coral">
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="13" cy="13" r="10"/><path d="M13 13V7M13 13l4 2"/></svg>
-        </div>
-        <h3>Vendus plus vite</h3>
-        <p>Un bien mieux présenté génère plus de demandes de visite.</p>
-      </article>
-      <article class="card rv">
-        <div class="ico soft">
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="#FF5A3C"><path d="M13 2l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></svg>
-        </div>
-        <h3>Une agence moderne</h3>
-        <p>Des réseaux soignés, aux couleurs de votre agence. Vous sortez du lot.</p>
-      </article>
+<section class="band">
+  <div class="band-inner">
+    <div class="wrap">
+      <div class="head rv" style="margin-bottom:46px">
+        <span class="eyebrow">Pourquoi ça marche</span>
+        <h2 class="huge">La photo informe.<br><span class="serif">La vidéo donne envie.</span></h2>
+      </div>
+      <div class="grid g3">
+        <article class="bnf rv">
+          <div class="ico">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#7FE3E0" stroke-width="2"><ellipse cx="13" cy="13" rx="11" ry="7"/><circle cx="13" cy="13" r="3"/></svg>
+          </div>
+          <h3>Plus de vues</h3>
+          <p>Une vidéo attire l'œil dans le fil d'actualité. Vos biens sont vus, et revus.</p>
+        </article>
+        <article class="bnf rv">
+          <div class="ico hot">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="13" cy="13" r="10"/><path d="M13 13V7M13 13l4 2"/></svg>
+          </div>
+          <h3>Vendus plus vite</h3>
+          <p>Un bien mieux présenté génère plus de demandes de visite.</p>
+        </article>
+        <article class="bnf rv">
+          <div class="ico">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="#FF8E76"><path d="M13 2l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></svg>
+          </div>
+          <h3>Une agence moderne</h3>
+          <p>Des réseaux soignés, aux couleurs de votre agence. Vous sortez du lot.</p>
+        </article>
+      </div>
     </div>
   </div>
 </section>
@@ -485,23 +540,23 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
       <span class="eyebrow lagon">Comment ça marche</span>
       <h2>Trois étapes. <span class="serif">Zéro effort.</span></h2>
     </div>
-    <div class="grid g3">
-      <article class="card step rv">
-        <span class="num">01</span>
+    <ol class="path">
+      <li class="rv">
+        <span class="node">1</span>
         <h3>Vous envoyez photos et plans</h3>
         <p>Les photos de l'annonce et les plans du bien, par WhatsApp, e-mail ou lien. Rien de plus.</p>
-      </article>
-      <article class="card step alt rv">
-        <span class="num">02</span>
+      </li>
+      <li class="rv">
+        <span class="node">2</span>
         <h3>J'anime</h3>
         <p>Mouvements de caméra, textes, logo et musique. À votre image.</p>
-      </article>
-      <article class="card step rv">
-        <span class="num">03</span>
+      </li>
+      <li class="rv">
+        <span class="node">3</span>
         <h3>Vous publiez</h3>
         <p>Vidéo livrée sous 48 h, aux bons formats pour chaque réseau.</p>
-      </article>
-    </div>
+      </li>
+    </ol>
   </div>
 </section>
 
