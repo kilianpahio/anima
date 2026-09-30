@@ -493,15 +493,13 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
 .card,.plan,.bnf{position:relative}
 .card,.plan{overflow:hidden}
 @media(hover:hover){
-  .card::after,.plan::after,.bnf::after{
+  .card::after,.plan::after{
     content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
     background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
       rgba(182,94,69,.16),transparent 62%);
     opacity:0;transition:opacity .35s ease;
   }
-  .bnf::after{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
-      rgba(233,192,111,.16),transparent 62%)}
-  .card:hover::after,.plan:hover::after,.bnf:hover::after{opacity:1}
+  .card:hover::after,.plan:hover::after{opacity:1}
 }
 
 /* projecteur doré sur le bandeau sombre */
@@ -1062,7 +1060,7 @@ footer .logo{font-size:17px;color:var(--ink);margin-right:0}
 
   /* ---- le curseur éclaire ce qu'il survole ---- */
   if (window.matchMedia('(hover: hover)').matches) {
-    var lit = document.querySelectorAll('.card, .plan, .bnf');
+    var lit = document.querySelectorAll('.card, .plan');
     Array.prototype.forEach.call(lit, function(el){
       el.addEventListener('pointermove', function(ev){
         var r = el.getBoundingClientRect();
